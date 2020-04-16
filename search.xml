@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>centos系统中nginx的安装和配置</title>
+    <url>/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="1-安装gcc"><a href="#1-安装gcc" class="headerlink" title="1. 安装gcc"></a>1. 安装gcc</h3><p>安装redis需要先将官方下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，则需要安装。</p>
+<p>查看gcc版本</p>
+<pre><code>gcc -v</code></pre><p>如果未安装gcc，提示gcc 命令未找到，则需安装gcc。执行以下命令来完成gcc安装。</p>
+<pre><code>yum -y install gcc</code></pre><h3 id="2-pcre、pcre-devel安装"><a href="#2-pcre、pcre-devel安装" class="headerlink" title="2. pcre、pcre-devel安装"></a>2. pcre、pcre-devel安装</h3><p>pcre（Perl Compatible Regular Expressions）是一个perl库，包括perl兼容的正则表达式库。nginx的http模块使用pcre来解析正则表达式，所以需要安装pcre库，pcre-devel是使用pcre开发的一个二次开发库。nginx也需要此库。执行以下命令进行安装：</p>
+<pre><code>yum install -y pcre pcre-devel</code></pre><h3 id="3-zlib安装"><a href="#3-zlib安装" class="headerlink" title="3. zlib安装"></a>3. zlib安装</h3><p>zlib库提供了很多种压缩和解压缩方式，nginx使用zlib对http包的内容进行gzip，所以需要在centos 7上安装zlib库。执行以下命令进行安装操作：</p>
+<pre><code>yum install -y zlib zlib-devel</code></pre><h3 id="4-openssl安装"><a href="#4-openssl安装" class="headerlink" title="4. openssl安装"></a>4. openssl安装</h3><pre><code>yum install -y openssl openssl-devel</code></pre><h3 id="5-nginx安装"><a href="#5-nginx安装" class="headerlink" title="5. nginx安装"></a>5. nginx安装</h3><h4 id="5-1-获取nginx"><a href="#5-1-获取nginx" class="headerlink" title="5.1 获取nginx"></a>5.1 获取nginx</h4><pre><code>wget http://nginx.org/download/nginx-1.9.9.tar.gz</code></pre><h4 id="5-2-解压nginx"><a href="#5-2-解压nginx" class="headerlink" title="5.2 解压nginx"></a>5.2 解压nginx</h4><p>将下载好的nginx解压到/usr/soft目录下</p>
+<pre><code>tar -zxvf nginx-1.9.9.tar.gz -C /usr/soft</code></pre><h4 id="5-3-安装nginx"><a href="#5-3-安装nginx" class="headerlink" title="5.3 安装nginx"></a>5.3 安装nginx</h4><p>解压后切换到nginx-1.9.9目录下，执行以下命令完成nginx安装</p>
+<pre><code>cd /usr/soft/nginx-1.9.9/</code></pre><p>指定安装路径</p>
+<pre><code>./configure --prefix=/opt/nginx
+
+make
+
+make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" class="headerlink" title="5.4 配置nginx"></a>5.4 配置nginx</h4><pre><code>修改配置文件
+
+切换目录：[root@localhost nginx-1.9.9]# cd /usr/local/nginx/conf
+
+修改文件：[root@localhost conf]# vi nginx.conf</code></pre><p>主要是修改server配置节的内容，listen为nginx的端口号，默认为80，可按需修改。</p>
+<p>ESC键，退出编辑模式，按冒号键“:”进入命令模式，输入“wq”然后回车，保存并退出；</p>
+<p>切换到sbin目录：</p>
+<pre><code>[root@localhost conf]# cd /usr/local/nginx/sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
+<pre><code>[root@localhost sbin]# ./nginx</code></pre><p>重启nginx:</p>
+<pre><code>[root@localhost sbin]# ./nginx -s reload</code></pre>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux上mysql5.7安装</title>
+    <url>/2020/04/16/linux%E4%B8%8Amysql5.7%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h3 id="1-下载mysql安装包"><a href="#1-下载mysql安装包" class="headerlink" title="1. 下载mysql安装包"></a>1. 下载mysql安装包</h3><p>地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
+<h3 id="2-使用ftp工具上传到-usr-local"><a href="#2-使用ftp工具上传到-usr-local" class="headerlink" title="2. 使用ftp工具上传到/usr/local"></a>2. 使用ftp工具上传到/usr/local</h3><hr>
+<h3 id="3-解压安装包"><a href="#3-解压安装包" class="headerlink" title="3. 解压安装包:"></a>3. 解压安装包:</h3><p><code>tar -zxvf mysql-5.7.27-linux-glibc2.12-x86_64.tar.gz</code></p>
+<h3 id="4-修改文件夹名称："><a href="#4-修改文件夹名称：" class="headerlink" title="4. 修改文件夹名称："></a>4. 修改文件夹名称：</h3><p><code>mv /usr/local/mysql-5.7.27-linux-glibc2.12-x86_64 /usr/local/mysql-5.7.27</code></p>
+<h3 id="5-创建mysql用户组和用户"><a href="#5-创建mysql用户组和用户" class="headerlink" title="5. 创建mysql用户组和用户"></a>5. 创建mysql用户组和用户</h3><pre><code>
+groupadd mysql
+
+useradd -r -g mysql -s /bin/false mysql
+</code></pre>
+
+<h3 id="6-mysql目录授权给mysql组和mysql用户"><a href="#6-mysql目录授权给mysql组和mysql用户" class="headerlink" title="6. mysql目录授权给mysql组和mysql用户"></a>6. mysql目录授权给mysql组和mysql用户</h3><pre><code>
+chown mysql:mysql mysql
+
+chmod 750 mysql
+</code></pre>
+
+<h3 id="7-初始化数据库"><a href="#7-初始化数据库" class="headerlink" title="7. 初始化数据库"></a>7. 初始化数据库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;mysqld --initialize --user&#x3D;mysql --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql-5.7.27&#x2F; --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;mysql-5.7.27&#x2F;data&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><strong>记下最后打印的临时密码</strong></p>
+<h3 id="8-配置my-cnf"><a href="#8-配置my-cnf" class="headerlink" title="8. 配置my.cnf"></a>8. 配置my.cnf</h3><p>如果/etc目录下存在my.cnf则直接编辑</p>
+<p><code>vim /etc/my.cnf</code></p>
+<p>如果/etc目录下不存在my.cnf，则先创建文件，再编辑</p>
+<pre><code>
+mkdir /etc/my.cnf
+
+vim /etc/my.cnf
+</code></pre>
+
+<p>我配置的编码格式是uft8mb4，配置文件内容如下：</p>
+<pre><code>
+[mysqld]
+
+character-set-client-handshake = FALSE
+
+character_set_server=utf8mb4
+
+collation-server = utf8mb4_unicode_ci
+
+init_connect='SET NAMES utf8mb4'
+
+basedir=/usr/local/mysql-5.7.27
+
+datadir=/usr/local/mysql-5.7.27/data
+
+socket=/tmp/mysql.sock
+
+log-error=/var/log/mysqld.log
+
+pid-file=/var/run/mysqld/mysqld.pid
+[mysql]
+default-character-set=utf8mb4
+[client]
+default-character-set=utf8mb4
+
+</code></pre>
+
+<h3 id="9-配置开机启动"><a href="#9-配置开机启动" class="headerlink" title="9. 配置开机启动"></a>9. 配置开机启动</h3><p><code>cp support-files/mysql.server /etc/init.d/mysqld</code></p>
+<h3 id="10-环境变量设置"><a href="#10-环境变量设置" class="headerlink" title="10. 环境变量设置"></a>10. 环境变量设置</h3><p>编辑profile文件</p>
+<p><code>vim /etc/profile</code></p>
+<p>添加如下设置到最后一行</p>
+<p><code>export PATH=$PATH:/usr/local/mysql-5.7.27/bin</code></p>
+<p>保存配置文件,使其生效</p>
+<p><code>source /etc/profile</code></p>
+<h3 id="11-修改密码"><a href="#11-修改密码" class="headerlink" title="11. 修改密码"></a>11. 修改密码</h3><p>首先启动mysql</p>
+<p><code>service mysqld start</code></p>
+<p>登录mysql</p>
+<p><code>mysql -u root -p</code></p>
+<p>输入之前存的临时密码，进入mysql命令行，设置密码为123456，执行</p>
+<pre><code>
+mysql>set password=password('123456');
+
+mysql>grant all privileges on *.* to root@'%' identified by '123456';
+
+mysql>flush privileges;
+</code></pre>
+
+<p>退出</p>
+<p><code>mysql&gt;exit;</code></p>
+<p><strong>完成配置。</strong></p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux安装pip</title>
+    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
+    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
+<pre><code>
+yum -y install epel-release             
+yum -y install python-pip              
+pip --version  查看pip版本
+</code></pre>
+
+<p>更新pip，可以使用命令pip install –upgrade pip</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+</search>
