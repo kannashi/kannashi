@@ -86,14 +86,14 @@
 
 
 
-<meta name="description" content="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题起因是重启centos后，输入strat servive mysql,结果显示Starting MySQL.. ERROR! The server quit without updating PID file的日志，之后求助百度,发现是在重启服务器前没有关闭mysq">
+<meta name="description" content="起因是重启centos后，输入service mysql start,结果显示Starting MySQL.. ERROR! The server quit without updating PID file的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…最后的其中一个解决方法是这样的：   mkdir &#x2F;var&#x2F;run&#x2F;mysql  chown -R mysql:mysq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决Starting MySQL.. ERROR! The server quit without updating PID file的问题">
 <meta property="og:url" content="http://yoursite.com/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="hyoukan&#39;s blog">
-<meta property="og:description" content="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题起因是重启centos后，输入strat servive mysql,结果显示Starting MySQL.. ERROR! The server quit without updating PID file的日志，之后求助百度,发现是在重启服务器前没有关闭mysq">
+<meta property="og:description" content="起因是重启centos后，输入service mysql start,结果显示Starting MySQL.. ERROR! The server quit without updating PID file的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…最后的其中一个解决方法是这样的：   mkdir &#x2F;var&#x2F;run&#x2F;mysql  chown -R mysql:mysq">
 <meta property="article:published_time" content="2020-04-24T06:26:32.000Z">
-<meta property="article:modified_time" content="2020-04-24T06:59:19.999Z">
+<meta property="article:modified_time" content="2020-04-24T07:04:15.693Z">
 <meta property="article:author" content="hyoukan">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="centos">
@@ -408,7 +408,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  122words
+                  108words
                 </span>
               
 
@@ -445,7 +445,7 @@
       
 
       
-        <h1 id="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题"><a href="#记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题" class="headerlink" title="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题"></a>记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题</h1><p>起因是重启centos后，输入<code>strat servive mysql</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
+        <p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
 <pre>
 <code>
 mkdir /var/run/mysql
@@ -635,7 +635,7 @@ chown -R mysql:mysql /var/run/mysql
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题"><span class="nav-number">1.</span> <span class="nav-text">记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><span class="nav-number">1.0.1.</span> <span class="nav-text">ps：如果是用mysqld来启动服务的小伙伴,把&#x2F;var&#x2F;run&#x2F;mysql改为&#x2F;var&#x2F;run&#x2F;mysqld就好了</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><span class="nav-number">1.</span> <span class="nav-text">ps：如果是用mysqld来启动服务的小伙伴,把&#x2F;var&#x2F;run&#x2F;mysql改为&#x2F;var&#x2F;run&#x2F;mysqld就好了</span></a></li></ol></div>
             
 
           </div>

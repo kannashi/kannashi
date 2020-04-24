@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>centos系统中nginx的安装和配置</title>
+    <url>/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="1-安装gcc"><a href="#1-安装gcc" class="headerlink" title="1. 安装gcc"></a>1. 安装gcc</h3><p>安装redis需要先将官方下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，则需要安装。</p>
+<p>查看gcc版本</p>
+<pre><code>gcc -v</code></pre><p>如果未安装gcc，提示gcc 命令未找到，则需安装gcc。执行以下命令来完成gcc安装。</p>
+<pre><code>yum -y install gcc</code></pre><h3 id="2-pcre、pcre-devel安装"><a href="#2-pcre、pcre-devel安装" class="headerlink" title="2. pcre、pcre-devel安装"></a>2. pcre、pcre-devel安装</h3><p>pcre（Perl Compatible Regular Expressions）是一个perl库，包括perl兼容的正则表达式库。nginx的http模块使用pcre来解析正则表达式，所以需要安装pcre库，pcre-devel是使用pcre开发的一个二次开发库。nginx也需要此库。执行以下命令进行安装：</p>
+<pre><code>yum install -y pcre pcre-devel</code></pre><h3 id="3-zlib安装"><a href="#3-zlib安装" class="headerlink" title="3. zlib安装"></a>3. zlib安装</h3><p>zlib库提供了很多种压缩和解压缩方式，nginx使用zlib对http包的内容进行gzip，所以需要在centos 7上安装zlib库。执行以下命令进行安装操作：</p>
+<pre><code>yum install -y zlib zlib-devel</code></pre><h3 id="4-openssl安装"><a href="#4-openssl安装" class="headerlink" title="4. openssl安装"></a>4. openssl安装</h3><pre><code>yum install -y openssl openssl-devel</code></pre><h3 id="5-nginx安装"><a href="#5-nginx安装" class="headerlink" title="5. nginx安装"></a>5. nginx安装</h3><h4 id="5-1-获取nginx"><a href="#5-1-获取nginx" class="headerlink" title="5.1 获取nginx"></a>5.1 获取nginx</h4><pre><code>wget http://nginx.org/download/nginx-1.9.9.tar.gz</code></pre><h4 id="5-2-解压nginx"><a href="#5-2-解压nginx" class="headerlink" title="5.2 解压nginx"></a>5.2 解压nginx</h4><p>将下载好的nginx解压到/usr/soft目录下</p>
+<pre><code>tar -zxvf nginx-1.9.9.tar.gz -C /usr/soft</code></pre><h4 id="5-3-安装nginx"><a href="#5-3-安装nginx" class="headerlink" title="5.3 安装nginx"></a>5.3 安装nginx</h4><p>解压后切换到nginx-1.9.9目录下，执行以下命令完成nginx安装</p>
+<pre><code>cd /usr/soft/nginx-1.9.9/</code></pre><p>指定安装路径</p>
+<pre><code>./configure --prefix=/opt/nginx
+
+make
+
+make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" class="headerlink" title="5.4 配置nginx"></a>5.4 配置nginx</h4><pre><code>修改配置文件
+
+切换目录：[root@localhost nginx-1.9.9]# cd /usr/local/nginx/conf
+
+修改文件：[root@localhost conf]# vi nginx.conf</code></pre><p>主要是修改server配置节的内容，listen为nginx的端口号，默认为80，可按需修改。</p>
+<p>ESC键，退出编辑模式，按冒号键“:”进入命令模式，输入“wq”然后回车，保存并退出；</p>
+<p>切换到sbin目录：</p>
+<pre><code>[root@localhost conf]# cd /usr/local/nginx/sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
+<pre><code>[root@localhost sbin]# ./nginx</code></pre><p>重启nginx:</p>
+<pre><code>[root@localhost sbin]# ./nginx -s reload</code></pre>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rabbitMQ入门教程</title>
+    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>linux安装pip</title>
     <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
     <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
@@ -17,6 +55,27 @@ pip --version  查看pip版本
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
+    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
+<pre>
+<code>
+mkdir /var/run/mysql
+
+chown -R mysql:mysql /var/run/mysql
+</code>
+</pre>
+<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -108,64 +167,5 @@ mysql>flush privileges;
       <tags>
         <tag>linux</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>centos系统中nginx的安装和配置</title>
-    <url>/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h3 id="1-安装gcc"><a href="#1-安装gcc" class="headerlink" title="1. 安装gcc"></a>1. 安装gcc</h3><p>安装redis需要先将官方下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，则需要安装。</p>
-<p>查看gcc版本</p>
-<pre><code>gcc -v</code></pre><p>如果未安装gcc，提示gcc 命令未找到，则需安装gcc。执行以下命令来完成gcc安装。</p>
-<pre><code>yum -y install gcc</code></pre><h3 id="2-pcre、pcre-devel安装"><a href="#2-pcre、pcre-devel安装" class="headerlink" title="2. pcre、pcre-devel安装"></a>2. pcre、pcre-devel安装</h3><p>pcre（Perl Compatible Regular Expressions）是一个perl库，包括perl兼容的正则表达式库。nginx的http模块使用pcre来解析正则表达式，所以需要安装pcre库，pcre-devel是使用pcre开发的一个二次开发库。nginx也需要此库。执行以下命令进行安装：</p>
-<pre><code>yum install -y pcre pcre-devel</code></pre><h3 id="3-zlib安装"><a href="#3-zlib安装" class="headerlink" title="3. zlib安装"></a>3. zlib安装</h3><p>zlib库提供了很多种压缩和解压缩方式，nginx使用zlib对http包的内容进行gzip，所以需要在centos 7上安装zlib库。执行以下命令进行安装操作：</p>
-<pre><code>yum install -y zlib zlib-devel</code></pre><h3 id="4-openssl安装"><a href="#4-openssl安装" class="headerlink" title="4. openssl安装"></a>4. openssl安装</h3><pre><code>yum install -y openssl openssl-devel</code></pre><h3 id="5-nginx安装"><a href="#5-nginx安装" class="headerlink" title="5. nginx安装"></a>5. nginx安装</h3><h4 id="5-1-获取nginx"><a href="#5-1-获取nginx" class="headerlink" title="5.1 获取nginx"></a>5.1 获取nginx</h4><pre><code>wget http://nginx.org/download/nginx-1.9.9.tar.gz</code></pre><h4 id="5-2-解压nginx"><a href="#5-2-解压nginx" class="headerlink" title="5.2 解压nginx"></a>5.2 解压nginx</h4><p>将下载好的nginx解压到/usr/soft目录下</p>
-<pre><code>tar -zxvf nginx-1.9.9.tar.gz -C /usr/soft</code></pre><h4 id="5-3-安装nginx"><a href="#5-3-安装nginx" class="headerlink" title="5.3 安装nginx"></a>5.3 安装nginx</h4><p>解压后切换到nginx-1.9.9目录下，执行以下命令完成nginx安装</p>
-<pre><code>cd /usr/soft/nginx-1.9.9/</code></pre><p>指定安装路径</p>
-<pre><code>./configure --prefix=/opt/nginx
-
-make
-
-make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" class="headerlink" title="5.4 配置nginx"></a>5.4 配置nginx</h4><pre><code>修改配置文件
-
-切换目录：[root@localhost nginx-1.9.9]# cd /usr/local/nginx/conf
-
-修改文件：[root@localhost conf]# vi nginx.conf</code></pre><p>主要是修改server配置节的内容，listen为nginx的端口号，默认为80，可按需修改。</p>
-<p>ESC键，退出编辑模式，按冒号键“:”进入命令模式，输入“wq”然后回车，保存并退出；</p>
-<p>切换到sbin目录：</p>
-<pre><code>[root@localhost conf]# cd /usr/local/nginx/sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
-<pre><code>[root@localhost sbin]# ./nginx</code></pre><p>重启nginx:</p>
-<pre><code>[root@localhost sbin]# ./nginx -s reload</code></pre>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
-    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h1 id="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题"><a href="#记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题" class="headerlink" title="记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题"></a>记录Starting-MySQL-ERROR-The-server-quit-without-updating-PID-file的问题</h1><p>起因是重启centos后，输入<code>strat servive mysql</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
-<pre>
-<code>
-mkdir /var/run/mysql
-
-chown -R mysql:mysql /var/run/mysql
-</code>
-</pre>
-<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>centos</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>rabbitMQ入门教程</title>
-    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
-]]></content>
   </entry>
 </search>
