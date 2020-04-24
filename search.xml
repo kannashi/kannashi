@@ -33,25 +33,6 @@ make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" cla
       </tags>
   </entry>
   <entry>
-    <title>linux安装pip</title>
-    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
-    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
-<pre><code>
-yum -y install epel-release             
-yum -y install python-pip              
-pip --version  查看pip版本
-</code></pre>
-
-<p>更新pip，可以使用命令pip install –upgrade pip</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux上mysql5.7安装</title>
     <url>/2020/04/16/linux%E4%B8%8Amysql5.7%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h3 id="1-下载mysql安装包"><a href="#1-下载mysql安装包" class="headerlink" title="1. 下载mysql安装包"></a>1. 下载mysql安装包</h3><p>地址：<a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/</a></p>
@@ -133,6 +114,25 @@ mysql>flush privileges;
 <p>退出</p>
 <p><code>mysql&gt;exit;</code></p>
 <p><strong>完成配置。</strong></p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux安装pip</title>
+    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
+    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
+<pre><code>
+yum -y install epel-release             
+yum -y install python-pip              
+pip --version  查看pip版本
+</code></pre>
+
+<p>更新pip，可以使用命令pip install –upgrade pip</p>
 ]]></content>
       <categories>
         <category>运维</category>
