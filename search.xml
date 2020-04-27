@@ -10,72 +10,28 @@
 <pre><code>yum install -y pcre pcre-devel</code></pre><h3 id="3-zlib安装"><a href="#3-zlib安装" class="headerlink" title="3. zlib安装"></a>3. zlib安装</h3><p>zlib库提供了很多种压缩和解压缩方式，nginx使用zlib对http包的内容进行gzip，所以需要在centos 7上安装zlib库。执行以下命令进行安装操作：</p>
 <pre><code>yum install -y zlib zlib-devel</code></pre><h3 id="4-openssl安装"><a href="#4-openssl安装" class="headerlink" title="4. openssl安装"></a>4. openssl安装</h3><pre><code>yum install -y openssl openssl-devel</code></pre><h3 id="5-nginx安装"><a href="#5-nginx安装" class="headerlink" title="5. nginx安装"></a>5. nginx安装</h3><h4 id="5-1-获取nginx"><a href="#5-1-获取nginx" class="headerlink" title="5.1 获取nginx"></a>5.1 获取nginx</h4><pre><code>wget http://nginx.org/download/nginx-1.9.9.tar.gz</code></pre><h4 id="5-2-解压nginx"><a href="#5-2-解压nginx" class="headerlink" title="5.2 解压nginx"></a>5.2 解压nginx</h4><p>将下载好的nginx解压到/usr/soft目录下</p>
 <pre><code>tar -zxvf nginx-1.9.9.tar.gz -C /usr/soft</code></pre><h4 id="5-3-安装nginx"><a href="#5-3-安装nginx" class="headerlink" title="5.3 安装nginx"></a>5.3 安装nginx</h4><p>解压后切换到nginx-1.9.9目录下，执行以下命令完成nginx安装</p>
-<pre><code>cd /usr/soft/nginx-1.9.9/</code></pre><p>指定安装路径</p>
+<pre><code>cd /usr/soft/nginx-1.9.9/</code></pre><p>指定安装路径到/opt（如果使用别的目录的，请把5.4的opt也换成那个目录）</p>
 <pre><code>./configure --prefix=/opt/nginx
 
 make
 
 make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" class="headerlink" title="5.4 配置nginx"></a>5.4 配置nginx</h4><pre><code>修改配置文件
 
-切换目录：[root@localhost nginx-1.9.9]# cd /usr/local/nginx/conf
+切换目录： cd /
 
-修改文件：[root@localhost conf]# vi nginx.conf</code></pre><p>主要是修改server配置节的内容，listen为nginx的端口号，默认为80，可按需修改。</p>
+切换目录： cd /opt/nginx/conf
+
+修改文件： vi nginx.conf</code></pre><p>主要是修改server配置节的内容，listen为nginx的端口号，默认为80，可按需修改。</p>
 <p>ESC键，退出编辑模式，按冒号键“:”进入命令模式，输入“wq”然后回车，保存并退出；</p>
 <p>切换到sbin目录：</p>
-<pre><code>[root@localhost conf]# cd /usr/local/nginx/sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
-<pre><code>[root@localhost sbin]# ./nginx</code></pre><p>重启nginx:</p>
-<pre><code>[root@localhost sbin]# ./nginx -s reload</code></pre>]]></content>
+<pre><code>cd ../sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
+<pre><code>./nginx</code></pre><p>重启nginx:</p>
+<pre><code>./nginx -s reload</code></pre>]]></content>
       <categories>
         <category>运维</category>
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>rabbitMQ入门教程</title>
-    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>linux安装pip</title>
-    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
-    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
-<pre><code>
-yum -y install epel-release             
-yum -y install python-pip              
-pip --version  查看pip版本
-</code></pre>
-
-<p>更新pip，可以使用命令pip install –upgrade pip</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
-    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
-<pre>
-<code>
-mkdir /var/run/mysql
-
-chown -R mysql:mysql /var/run/mysql
-</code>
-</pre>
-<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>centos</tag>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -167,5 +123,51 @@ mysql>flush privileges;
       <tags>
         <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
+    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
+<pre>
+<code>
+mkdir /var/run/mysql
+
+chown -R mysql:mysql /var/run/mysql
+</code>
+</pre>
+<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux安装pip</title>
+    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
+    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
+<pre><code>
+yum -y install epel-release             
+yum -y install python-pip              
+pip --version  查看pip版本
+</code></pre>
+
+<p>更新pip，可以使用命令pip install –upgrade pip</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rabbitMQ入门教程</title>
+    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
+]]></content>
   </entry>
 </search>

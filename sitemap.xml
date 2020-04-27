@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2020-04-27T02:41:30.271Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2020-04-24T07:04:15.693Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</loc>
     
     <lastmod>2020-04-24T06:50:36.878Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2020-04-16T07:58:56.231Z</lastmod>
     
   </url>
   
