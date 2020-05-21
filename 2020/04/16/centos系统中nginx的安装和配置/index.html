@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="hyoukan&#39;s blog">
 <meta property="og:description" content="1. 安装gcc安装redis需要先将官方下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，则需要安装。 查看gcc版本 gcc -v如果未安装gcc，提示gcc 命令未找到，则需安装gcc。执行以下命令来完成gcc安装。 yum -y install gcc2. pcre、pcre-devel安装pcre（Perl Compatible Regular Expressions）是一个p">
 <meta property="article:published_time" content="2020-04-16T06:08:18.000Z">
-<meta property="article:modified_time" content="2020-04-27T02:41:30.271Z">
+<meta property="article:modified_time" content="2020-05-21T03:25:53.467Z">
 <meta property="article:author" content="hyoukan">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  451words
+                  636words
                 </span>
               
 
@@ -422,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1min
+                  2min
                 </span>
               
             </div>
@@ -466,7 +466,28 @@ make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" cla
 <p>切换到sbin目录：</p>
 <pre><code>cd ../sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
 <pre><code>./nginx</code></pre><p>重启nginx:</p>
-<pre><code>./nginx -s reload</code></pre>
+<pre><code>./nginx -s reload</code></pre><p>关闭nginx</p>
+<pre><code>./nginx -s stop</code></pre><h3 id="6-nginx设置开机启动服务"><a href="#6-nginx设置开机启动服务" class="headerlink" title="6. nginx设置开机启动服务"></a>6. nginx设置开机启动服务</h3><p>首先需要创建nginx的服务文件</p>
+<pre><code>vi /usr/lib/systemd/system/nginx.service</code></pre><p>填入如下内容，具体地址按照你nginx的安装地址来修改</p>
+<pre><code>[Unit]
+Description=nginx
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/nginx/sbin/nginx
+ExecReload=/opt/nginx/sbin/nginx -s reload
+ExecStop=/opt/nginx/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target</code></pre><p>然后保存文件，如果nginx正在运行，首先关闭nginx</p>
+<pre><code>pkill -9 nginx</code></pre><p>设置开机自启动</p>
+<pre><code>systemctl enable nginx.service</code></pre><p>然后启动服务</p>
+<pre><code>systemctl start nginx</code></pre><p>查看服务状态，显示Active: active (running)，表示设置成功</p>
+<pre><code>systemctl status nginx.service</code></pre><p>重启服务器</p>
+<pre><code>reboot</code></pre><p>再次查看服务状态，依然显示Active: active (running)，开机自启动设置完成！</p>
+<pre><code>systemctl status nginx.service</code></pre>
       
     </div>
     
@@ -648,7 +669,7 @@ make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" cla
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装gcc"><span class="nav-number">1.</span> <span class="nav-text">1. 安装gcc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-pcre、pcre-devel安装"><span class="nav-number">2.</span> <span class="nav-text">2. pcre、pcre-devel安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-zlib安装"><span class="nav-number">3.</span> <span class="nav-text">3. zlib安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-openssl安装"><span class="nav-number">4.</span> <span class="nav-text">4. openssl安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-nginx安装"><span class="nav-number">5.</span> <span class="nav-text">5. nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-获取nginx"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 获取nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-解压nginx"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 解压nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-安装nginx"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 安装nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-配置nginx"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 配置nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5nginx命令"><span class="nav-number">5.5.</span> <span class="nav-text">5.5nginx命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装gcc"><span class="nav-number">1.</span> <span class="nav-text">1. 安装gcc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-pcre、pcre-devel安装"><span class="nav-number">2.</span> <span class="nav-text">2. pcre、pcre-devel安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-zlib安装"><span class="nav-number">3.</span> <span class="nav-text">3. zlib安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-openssl安装"><span class="nav-number">4.</span> <span class="nav-text">4. openssl安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-nginx安装"><span class="nav-number">5.</span> <span class="nav-text">5. nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-获取nginx"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 获取nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-解压nginx"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 解压nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-安装nginx"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 安装nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-配置nginx"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 配置nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5nginx命令"><span class="nav-number">5.5.</span> <span class="nav-text">5.5nginx命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-nginx设置开机启动服务"><span class="nav-number">6.</span> <span class="nav-text">6. nginx设置开机启动服务</span></a></li></ol></div>
             
 
           </div>
@@ -682,7 +703,7 @@ make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" cla
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">1k</span>
+    <span title="Site words total count">1.2k</span>
   
 </div>
 

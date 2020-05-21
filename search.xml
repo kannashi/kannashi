@@ -26,13 +26,80 @@ make install</code></pre><h4 id="5-4-配置nginx"><a href="#5-4-配置nginx" cla
 <p>切换到sbin目录：</p>
 <pre><code>cd ../sbin</code></pre><h4 id="5-5nginx命令"><a href="#5-5nginx命令" class="headerlink" title="5.5nginx命令"></a>5.5nginx命令</h4><p>启动Nginx:</p>
 <pre><code>./nginx</code></pre><p>重启nginx:</p>
-<pre><code>./nginx -s reload</code></pre>]]></content>
+<pre><code>./nginx -s reload</code></pre><p>关闭nginx</p>
+<pre><code>./nginx -s stop</code></pre><h3 id="6-nginx设置开机启动服务"><a href="#6-nginx设置开机启动服务" class="headerlink" title="6. nginx设置开机启动服务"></a>6. nginx设置开机启动服务</h3><p>首先需要创建nginx的服务文件</p>
+<pre><code>vi /usr/lib/systemd/system/nginx.service</code></pre><p>填入如下内容，具体地址按照你nginx的安装地址来修改</p>
+<pre><code>[Unit]
+Description=nginx
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/nginx/sbin/nginx
+ExecReload=/opt/nginx/sbin/nginx -s reload
+ExecStop=/opt/nginx/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target</code></pre><p>然后保存文件，如果nginx正在运行，首先关闭nginx</p>
+<pre><code>pkill -9 nginx</code></pre><p>设置开机自启动</p>
+<pre><code>systemctl enable nginx.service</code></pre><p>然后启动服务</p>
+<pre><code>systemctl start nginx</code></pre><p>查看服务状态，显示Active: active (running)，表示设置成功</p>
+<pre><code>systemctl status nginx.service</code></pre><p>重启服务器</p>
+<pre><code>reboot</code></pre><p>再次查看服务状态，依然显示Active: active (running)，开机自启动设置完成！</p>
+<pre><code>systemctl status nginx.service</code></pre>]]></content>
       <categories>
         <category>运维</category>
       </categories>
       <tags>
         <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>linux安装pip</title>
+    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
+    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
+<pre><code>
+yum -y install epel-release             
+yum -y install python-pip              
+pip --version  查看pip版本
+</code></pre>
+
+<p>更新pip，可以使用命令pip install –upgrade pip</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
+    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
+<pre>
+<code>
+mkdir /var/run/mysql
+
+chown -R mysql:mysql /var/run/mysql
+</code>
+</pre>
+<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rabbitMQ入门教程</title>
+    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
+]]></content>
   </entry>
   <entry>
     <title>linux上mysql5.7安装</title>
@@ -122,52 +189,6 @@ mysql>flush privileges;
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux安装pip</title>
-    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
-    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
-<pre><code>
-yum -y install epel-release             
-yum -y install python-pip              
-pip --version  查看pip版本
-</code></pre>
-
-<p>更新pip，可以使用命令pip install –upgrade pip</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>rabbitMQ入门教程</title>
-    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
-    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
-<pre>
-<code>
-mkdir /var/run/mysql
-
-chown -R mysql:mysql /var/run/mysql
-</code>
-</pre>
-<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>centos</tag>
-        <tag>mysql</tag>
       </tags>
   </entry>
 </search>
