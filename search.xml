@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>centos7安装docker</title>
+    <url>/2020/05/21/centos7%E5%AE%89%E8%A3%85docker/</url>
+    <content><![CDATA[<h3 id="1-查看内核版本"><a href="#1-查看内核版本" class="headerlink" title="1. 查看内核版本"></a>1. 查看内核版本</h3><p>建议3.10以上内核安装docker</p>
+<pre><code>[root@hy /]# uname -a
+Linux hy.com 3.10.0-1062.el7.x86_64 #1 SMP Wed Aug 7 18:08:02 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux</code></pre><h3 id="2-把yum包更新到最新"><a href="#2-把yum包更新到最新" class="headerlink" title="2. 把yum包更新到最新"></a>2. 把yum包更新到最新</h3><pre><code>yum update</code></pre><h3 id="3-安装需要的软件包"><a href="#3-安装需要的软件包" class="headerlink" title="3.安装需要的软件包"></a>3.安装需要的软件包</h3><p>yum-util 提供yum-config-manager功能，另外两个是devicemapper驱动依赖的</p>
+<pre><code>yum install -y yum-utils device-mapper-persistent-data lvm2</code></pre><h3 id="4-设置yum源"><a href="#4-设置yum源" class="headerlink" title="4.设置yum源"></a>4.设置yum源</h3><pre><code>yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</code></pre><h3 id="5-查看docker版本"><a href="#5-查看docker版本" class="headerlink" title="5.查看docker版本"></a>5.查看docker版本</h3><p>可以查看所有仓库中所有docker版本，并选择特定版本安装</p>
+<pre><code>yum list docker-ce --showduplicates | sort -r</code></pre><h3 id="6-安装Docker"><a href="#6-安装Docker" class="headerlink" title="6.安装Docker"></a>6.安装Docker</h3><p>我安装的是17.12.1.ce</p>
+<pre><code>yum install docker-ce-17.12.1.ce</code></pre><h3 id="7-启动Docker，并加入开启自启动"><a href="#7-启动Docker，并加入开启自启动" class="headerlink" title="7.启动Docker，并加入开启自启动"></a>7.启动Docker，并加入开启自启动</h3><pre><code>systemctl start docker
+
+systemctl enable docker</code></pre><h3 id="8-检测Docker版本"><a href="#8-检测Docker版本" class="headerlink" title="8.检测Docker版本"></a>8.检测Docker版本</h3><pre><code>[root@hy /]# docker version
+Client:
+ Version:       17.12.1-ce
+ API version:   1.35
+ Go version:    go1.9.4
+ Git commit:    7390fc6
+ Built: Tue Feb 27 22:15:20 2018
+ OS/Arch:       linux/amd64
+
+Server:
+ Engine:
+  Version:      17.12.1-ce
+  API version:  1.35 (minimum version 1.12)
+  Go version:   go1.9.4
+  Git commit:   7390fc6
+  Built:        Tue Feb 27 22:17:54 2018
+  OS/Arch:      linux/amd64
+  Experimental: false</code></pre><p>安装成功！</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>centos系统中nginx的安装和配置</title>
     <url>/2020/04/16/centos%E7%B3%BB%E7%BB%9F%E4%B8%ADnginx%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h3 id="1-安装gcc"><a href="#1-安装gcc" class="headerlink" title="1. 安装gcc"></a>1. 安装gcc</h3><p>安装redis需要先将官方下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，则需要安装。</p>
@@ -54,52 +91,6 @@ WantedBy=multi-user.target</code></pre><p>然后保存文件，如果nginx正在
       <tags>
         <tag>linux</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>linux安装pip</title>
-    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
-    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
-<pre><code>
-yum -y install epel-release             
-yum -y install python-pip              
-pip --version  查看pip版本
-</code></pre>
-
-<p>更新pip，可以使用命令pip install –upgrade pip</p>
-]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
-    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
-<pre>
-<code>
-mkdir /var/run/mysql
-
-chown -R mysql:mysql /var/run/mysql
-</code>
-</pre>
-<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
-      <categories>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>centos</tag>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>rabbitMQ入门教程</title>
-    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
-]]></content>
   </entry>
   <entry>
     <title>linux上mysql5.7安装</title>
@@ -190,5 +181,51 @@ mysql>flush privileges;
       <tags>
         <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>linux安装pip</title>
+    <url>/2020/04/16/linux%E5%AE%89%E8%A3%85pip/</url>
+    <content><![CDATA[<p>centos可通过以下三步快速安装pip:</p>
+<pre><code>
+yum -y install epel-release             
+yum -y install python-pip              
+pip --version  查看pip版本
+</code></pre>
+
+<p>更新pip，可以使用命令pip install –upgrade pip</p>
+]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Starting MySQL.. ERROR! The server quit without updating PID file的问题</title>
+    <url>/2020/04/24/%E8%A7%A3%E5%86%B3Starting%20MySQL..%20ERROR!%20The%20server%20quit%20without%20updating%20PID%20file%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>起因是重启centos后，输入<code>service mysql start</code>,结果显示<code>Starting MySQL.. ERROR! The server quit without updating PID file</code>的日志，之后求助百度,发现是在重启服务器前没有关闭mysql服务导致的…<br>最后的其中一个解决方法是这样的：</p>
+<pre>
+<code>
+mkdir /var/run/mysql
+
+chown -R mysql:mysql /var/run/mysql
+</code>
+</pre>
+<h3 id="ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了"><a href="#ps：如果是用mysqld来启动服务的小伙伴-把-var-run-mysql改为-var-run-mysqld就好了" class="headerlink" title="ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了"></a>ps：如果是用mysqld来启动服务的小伙伴,把/var/run/mysql改为/var/run/mysqld就好了</h3>]]></content>
+      <categories>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>centos</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>rabbitMQ入门教程</title>
+    <url>/2020/04/16/rabbitMQ%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p><a href="https://blog.csdn.net/hellozpc/article/details/81436980" target="_blank" rel="noopener" title="rabbitmq教程">https://blog.csdn.net/hellozpc/article/details/81436980</a></p>
+]]></content>
   </entry>
 </search>
